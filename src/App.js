@@ -24,6 +24,7 @@ class App extends React.Component {
      //currentUser here is our interface for interacting with the chatkit API
     chatManager.connect()
       .then(currentUser => {
+        debugger;
         currentUser.subscribeToRoom ({
           roomId: 11213510,
           //we need to provide a hook here: an event listener for new messages

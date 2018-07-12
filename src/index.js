@@ -33,3 +33,21 @@ registerServiceWorker();
 // Find out more about deployment here:
 
 //   http://bit.ly/2vY88Kr
+
+
+// ✘ bellebot@Annabelles-MacBook-Pro  ~/desktop/projects/bellebot-chat-app   master ●  npm install -g serve
+// /Users/bellebot/.nvm/versions/node/v9.5.0/bin/serve -> /Users/bellebot/.nvm/versions/node/v9.5.0/lib/node_modules/serve/bin/serve.js
+// + serve@9.2.0
+// added 73 packages from 39 contributors in 16.626s
+//  bellebot@Annabelles-MacBook-Pro  ~/desktop/projects/bellebot-chat-app   master ●  serve -s build
+// ERROR: DNS lookup failed: getaddrinfo ENOTFOUND Annabelles-MacBook-Pro.local
+
+//    ┌────────────────────────────────────────┐
+//    │                                        │
+//    │   Serving!                             │
+//    │                                        │
+//    │   Local:  http://localhost:5000        │
+//    │                                        │
+//    │   Copied local address to clipboard!   │
+//    │                                        │
+//    └────────────────────────────────────────┘

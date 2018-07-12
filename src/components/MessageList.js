@@ -11,7 +11,7 @@ const DUMMY_DATA =[
     },
     {
         senderId: 'cyberbelle',
-        text: 'lets eat'
+        text: 'lets eat!'
     }
 ]
 
