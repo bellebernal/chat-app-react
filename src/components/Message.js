@@ -1,0 +1,19 @@
+import React from 'react'
+
+class Message extends React.Component {
+    render() {
+        return (
+            <div className="message">
+                <div className="message-username">{this.props.username}</div>
+                <div className="message-text">{this.props.text}</div>
+            </div>
+        )
+    }
+}
+
+export default Message
+
+//NEXT STEPS:  turn this component class into a functional component;
+//...bc when a component doesnt have state or any lifecycle methods or any other methods, we can simplify this class by turning into a function which is best practice to prevent bugs
+//...bc functional components have more restraints to it making it less prone to bugs
+//refer to resource --> https://reactjs.org/docs/components-and-props.html
