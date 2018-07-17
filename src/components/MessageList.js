@@ -31,6 +31,8 @@ class MessageList extends React.Component {
     }
 }
 
+export default MessageList
+
 //This version of the MessageList component does not include the Message component
 // class MessageList extends React.Component {
 //     render() {
@@ -51,5 +53,5 @@ class MessageList extends React.Component {
 //         )
 //     }
 // }
-
-export default MessageList
+//
+//export default MessageList
