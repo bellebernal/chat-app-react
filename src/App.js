@@ -1,6 +1,6 @@
 import React from 'react';
 import Chatkit from '@pusher/chatkit'
-import Message from './components/Message'
+// import Message from './components/Message.js'
 import MessageList from './components/MessageList'
 //import SendMessageForm from './components/SendMessageForm'
 //import RoomList from './components/RoomList'
@@ -20,7 +20,7 @@ class App extends React.Component {
   //this method is triggered right after the render() method
   componentDidMount() {
      const chatManager = new Chatkit.ChatManager({
-       instanceLocator: instanceLocator,
+       instanceLocator,
        userId: 'cyberbelle',
        tokenProvider: new Chatkit.TokenProvider({
          url: tokenUrl
@@ -41,7 +41,7 @@ class App extends React.Component {
           hooks: {
             //event-handler
             onNewMessage: message => {
-              console.log('message.text: ', message.text);
+              // console.log('message.text: ', message.text);
               //for every new message we get from chatkit, we are describing its new state:
               this.setState({
                 //use spread operator to add a copy of the messages array (the this.state.messages array) and add the latest message (line 42) to the end of it 
@@ -54,12 +54,11 @@ class App extends React.Component {
     }
 
   render() {
-
-    console.log('this.state.messages: ', this.state.messages);
-
+    // console.log('this.state.messages: ', this.state.messages);
     return (
       <div className="app">
         {/* <header className="App-header">
+        \
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
