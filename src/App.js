@@ -3,13 +3,13 @@ import styles from './App.css'
 import Chatkit from '@pusher/chatkit'
 // import Message from './components/Message.js'
 import MessageList from './components/MessageList'
-//import SendMessageForm from './components/SendMessageForm'
+import SendMessageForm from './components/SendMessageForm'
 //import RoomList from './components/RoomList'
 //import NewRoomForm from './components/NewRoomForm'
 import { tokenUrl, instanceLocator } from './config'
 
 class App extends React.Component {
-
+  //constructor method is needed to initialize a component's state
   constructor() {
     super();
     this.state = {
@@ -68,7 +68,7 @@ class App extends React.Component {
         </p> */}
         {/* <RoomList/> */}
         <MessageList messages={this.state.messages} />
-        {/* <SendMessageForm/> */}
+        <SendMessageForm/>
         {/* <NewRoomForm/> */}
       </div>
     );
