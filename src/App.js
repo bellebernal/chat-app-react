@@ -15,6 +15,9 @@ class App extends React.Component {
     this.state = {
       messages: []
     }
+    //to enable the sendMessage method to have access to this keyword in line 60 we must bind it here
+    this.sendMessage = this.sendMessage.bind(this)
+    //we now have access to this in line 60 and enable us to access the currentUser object and call the sendMessage method
   }
 
   //To hook a react component to an API:  use lifecycle method componentDidMount()
@@ -33,7 +36,8 @@ class App extends React.Component {
      //currentUser here is our interface for interacting with the chatkit API
     chatManager.connect()
       .then(currentUser => {
-        currentUser.subscribeToRoom ({
+        this.currentUser = currentUser
+        this.currentUser.subscribeToRoom ({
           //room id generated from pusher chatkit engine
           roomId: 11213510,
           //we need to provide a hook here: an event listener for new messages
@@ -54,6 +58,13 @@ class App extends React.Component {
       })
     }
 
+    sendMessage(text) {
+      this.currentUser.sendMessage({
+        text, //text: text is the ES5 way of syntax, ES6 shortens the syntax when the key-value pair is the same
+        roomId: 11213510
+      })
+    }
+
   render() {
     // console.log('this.state.messages: ', this.state.messages);
     return (
@@ -68,7 +79,7 @@ class App extends React.Component {
         </p> */}
         {/* <RoomList/> */}
         <MessageList messages={this.state.messages} />
-        <SendMessageForm/>
+        <SendMessageForm sendMessage={this.sendMessage} />
         {/* <NewRoomForm/> */}
       </div>
     );
