@@ -4,16 +4,19 @@ import Chatkit from '@pusher/chatkit'
 // import Message from './components/Message.js'
 import MessageList from './components/MessageList'
 import SendMessageForm from './components/SendMessageForm'
-//import RoomList from './components/RoomList'
+import RoomList from './components/RoomList'
 //import NewRoomForm from './components/NewRoomForm'
 import { tokenUrl, instanceLocator } from './config'
+//import { ErrorResponse } from '../node_modules/pusher-platform';
 
 class App extends React.Component {
   //constructor method is needed to initialize a component's state
   constructor() {
     super();
     this.state = {
-      messages: []
+      messages: [],
+      joinableRooms: [],
+      joinedRooms: []
     }
     //to enable the sendMessage method to have access to this keyword in line 60 we must bind it here
     this.sendMessage = this.sendMessage.bind(this)
@@ -37,6 +40,20 @@ class App extends React.Component {
     chatManager.connect()
       .then(currentUser => {
         this.currentUser = currentUser
+
+        /* to fetch a subscribed/subscribable room */
+        this.currentUser.getJoinableRooms()
+          .then(joinableRooms => {
+            this.setState({
+              joinableRooms,
+              joinedRooms: this.currentUser.rooms //the instances where the user has already joined
+            })
+          })
+          .catch(err => alert('error on joinableRooms : ', err))
+          //getJoinableRooms() returns a promise .then after that promise we get access to the (joinableRooms)
+          //cach errors logic needed for promises
+
+
         this.currentUser.subscribeToRoom ({
           //room id generated from pusher chatkit engine
           roomId: 11213510,
@@ -49,13 +66,15 @@ class App extends React.Component {
               // console.log('message.text: ', message.text);
               //for every new message we get from chatkit, we are describing its new state:
               this.setState({
-                //use spread operator to add a copy of the messages array (the this.state.messages array) and add the latest message (line 42) to the end of it 
+                //use spread operator to add a copy of the messages array (the this.state.messages array) and append the latest message (line 42) to the end of it via the comma ,
                 messages: [...this.state.messages, message]
               })
             }
           }
         })
       })
+      .catch(err => alert('error on connecting: ', err))
+      //cach errors logic needed for promises
     }
 
     sendMessage(text) {
@@ -77,7 +96,7 @@ class App extends React.Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p> */}
-        {/* <RoomList/> */}
+        <RoomList rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]}/>
         <MessageList messages={this.state.messages} />
         <SendMessageForm sendMessage={this.sendMessage} />
         {/* <NewRoomForm/> */}
@@ -91,9 +110,9 @@ export default App;
 
 //CHATKIT TEST TOKEN PROVIDER:
 //only for testing purposes
-//what you'd rather have in production is is an endpoint which you have 
-//...created for exampte, using node -- and ther you would authenticate 
-//..the user which you can so using the chatkit server sdk.
+//what you'd rather have in production is an endpoint which you have 
+//...created for exampte, using node -- and there you would authenticate 
+//..the user which you can do so using the chatkit server sdk.
 
 //STATE + PROPS:
 // when using these features, you must first add a constructor to your app component
