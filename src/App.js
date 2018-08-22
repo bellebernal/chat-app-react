@@ -22,8 +22,8 @@ class App extends React.Component {
     //to enable the sendMessage method to have access to this keyword in line 60 we must bind it here
     this.sendMessage = this.sendMessage.bind(this)
     //we now have access to this in line 60 and enable us to access the currentUser object and call the sendMessage method
-    this.subscribeToRoom = this.subscribleToRoom.bind(this)
-    this.getJoinableRooms = this.getJoinableRooms.bind(this)
+    this.subscribeToRoom = this.subscribeToRoom.bind(this)
+    this.getRooms = this.getRooms.bind(this)
   }
 
   //To hook a react component to an API:  use lifecycle method componentDidMount()
@@ -43,7 +43,7 @@ class App extends React.Component {
     chatManager.connect()
     .then(currentUser => {
         this.currentUser = currentUser
-        this.getJoinableRooms()
+        this.getRooms()
         // this.subscribeToRoom() --this gets removed from componentDidMount because we want the user to specifically perform thiw method via onClick
     })
     .catch(err => alert('error on connecting: ', err))
@@ -51,7 +51,7 @@ class App extends React.Component {
   }
 
     /* updating to method below */
-    getJoinableRooms() {
+    getRooms() {
       this.currentUser.getJoinableRooms()
       .then(joinableRooms => {
         this.setState({
@@ -70,11 +70,11 @@ class App extends React.Component {
       })
       this.currentUser.subscribeToRoom({
         //roomId: 11213510 --> statically set the subscribed room on app launch
-        roomId: room.id, //dynamically subscribe to any room
+        roomId: roomId, //dynamically subscribe to any room
         hooks: {
           onNewMessage: message => {
             this.setState({
-            messages: [...this.state.messages, message]
+              messages: [...this.state.messages, message]
             })
           }
         }
@@ -84,7 +84,7 @@ class App extends React.Component {
         this.setState({
           roomId: room.id
         })
-        this.getJoinableRooms() 
+        this.getRooms() 
       })
       //and catch any errors if any...
       .catch(err => alert('error on subscribing to room: ', err))
