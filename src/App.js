@@ -7,7 +7,7 @@ import SendMessageForm from './components/SendMessageForm'
 import RoomList from './components/RoomList'
 //import NewRoomForm from './components/NewRoomForm'
 import { tokenUrl, instanceLocator } from './config'
-//import { ErrorResponse } from '../node_modules/pusher-platform';
+//import { ErrorResponse } from '../node_modules/pusher-platform'; 
 
 class App extends React.Component {
   //constructor method is needed to initialize a component's state
@@ -19,7 +19,7 @@ class App extends React.Component {
       joinableRooms: [],
       joinedRooms: []
     }
-    //to enable the sendMessage method to have access to this keyword in line 60 we must bind it here
+    //to enable the sendMessage method to have access to this keyword in line 93 we must bind it here
     this.sendMessage = this.sendMessage.bind(this)
     //we now have access to this in line 60 and enable us to access the currentUser object and call the sendMessage method
     this.subscribeToRoom = this.subscribeToRoom.bind(this)
@@ -44,7 +44,7 @@ class App extends React.Component {
     .then(currentUser => {
         this.currentUser = currentUser
         this.getRooms()
-        // this.subscribeToRoom() --this gets removed from componentDidMount because we want the user to specifically perform thiw method via onClick
+        // this.subscribeToRoom() --this gets removed from componentDidMount because we want the user to specifically perform this method via onClick
     })
     .catch(err => alert('error on connecting: ', err))
       //cach errors logic needed for promises
@@ -114,6 +114,7 @@ class App extends React.Component {
 
         {/* to enable the user to click on a room and subscribe to hit we pass subscribeToRoom as a property to RoomList */}
         <RoomList 
+          roomId={this.state.roomId}
           subscribeToRoom={this.subscribeToRoom}
           rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]}/>
         <MessageList messages={this.state.messages} />

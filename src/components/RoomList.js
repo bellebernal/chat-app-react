@@ -2,13 +2,16 @@ import React from 'react'
 
 class RoomList extends React.Component {
     render() {
+        // 
+        const orderedRooms = [...this.props.rooms].sort((a,b) => a.id - b.id)
         return (
             <div className="rooms-list">
                 <ul>
                 <h3>Chat Rooms:</h3>
-                    {this.props.rooms.map(room => {
+                    {orderedRooms.map(room => {
+                        const active = this.props.roomId === room.id ? "active" : "";
                         return(
-                            <li key={room.id} className="room">
+                            <li key={room.id} className={"room " + active}>
                                 {/* another part to pass subscribeToRoom method in this component to enable to user to click and subscribe */}
                                 <a 
                                     onClick={ () => this.props.subscribeToRoom(room.id) } 
