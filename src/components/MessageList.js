@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import Message from './Message'
 
 // const DUMMY_DATA =[
@@ -18,6 +19,25 @@ import Message from './Message'
 
 //This version of MessageList component includes the <Message/> component
 class MessageList extends React.Component {
+
+    componentWillUpdate() {
+        //to disable auto-scroll when user is looking back through history of messages (scrolling up)
+        const node = ReactDOM.findDOMNode(this)
+        this.shouldScrollToBottom = node.scrollTop + node.clientHeight + 100 >= node.scrollHeight
+    }
+
+    componentDidUpdate() {
+        // to have auto-scroll enabled work while user is near bottom of message list but not quite at the bottom
+        if (this.shouldScrollToBottom) {
+            const node = ReactDOM.findDOMNode(this)
+            node.scrollTop = node.scrollHeight
+        }
+
+        //to add auto-scroll to bottom when user sends new message which appends to bottom of message view
+        // const node = ReactDOM.findDOMNode(this)
+        // node.scrollTop = node.scrollHeight
+    }
+
     render() {
         return (
             <div className="message-list">
