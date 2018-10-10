@@ -1,11 +1,10 @@
 import React from 'react';
 import styles from './App.css'
 import Chatkit from '@pusher/chatkit'
-// import Message from './components/Message.js'
 import MessageList from './components/MessageList'
 import SendMessageForm from './components/SendMessageForm'
 import RoomList from './components/RoomList'
-//import NewRoomForm from './components/NewRoomForm'
+import NewRoomForm from './components/NewRoomForm'
 import { tokenUrl, instanceLocator } from './config'
 //import { ErrorResponse } from '../node_modules/pusher-platform'; 
 
@@ -24,6 +23,7 @@ class App extends React.Component {
     //we now have access to this in line 60 and enable us to access the currentUser object and call the sendMessage method
     this.subscribeToRoom = this.subscribeToRoom.bind(this)
     this.getRooms = this.getRooms.bind(this)
+    this.createRoom = this.createRoom.bind(this)
   }
 
   //To hook a react component to an API:  use lifecycle method componentDidMount()
@@ -98,6 +98,17 @@ class App extends React.Component {
       })
     }
 
+    createRoom(name) {
+      //console.log('roomName: ', roomName)
+      this.currentUser.createRoom({
+        name 
+      })
+      //returns a promise and after the promise resolves, we subscribe to that new room
+      //i.e. afer we create a room we auto-subscribe to it
+      .then(room => this.subscribeToRoom(room.id))
+      .catch(error => console.log('error with createRoom: ', error))
+    }
+
   render() {
     // console.log('this.state.messages: ', this.state.messages);
     return (
@@ -117,9 +128,15 @@ class App extends React.Component {
           roomId={this.state.roomId}
           subscribeToRoom={this.subscribeToRoom}
           rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]}/>
-        <MessageList messages={this.state.messages} />
-        <SendMessageForm sendMessage={this.sendMessage} />
-        {/* <NewRoomForm/> */}
+        <MessageList 
+          //on app launch prompt, no room is joined so we set the initial state
+          roomId={this.state.roomId}
+          messages={this.state.messages} />
+        <SendMessageForm
+          //disable when no room joined
+          disabled={!this.state.roomId} 
+          sendMessage={this.sendMessage} />
+        <NewRoomForm createRoom={this.createRoom} />
       </div>
     );
   }

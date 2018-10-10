@@ -39,6 +39,8 @@ class SendMessageForm extends React.Component {
                 onSubmit={this.handleSubmit}
                 className="send-message-form">
                 <input
+                    //disable the messager on app launch when no room is joined
+                    disabled={this.props.disabled}
                     onChange={this.handleChange}
                     //set the value of the input field--we are programatically controlling the value in the input field so that the value can only be whatever data the user has entered at any given time 
                     value={this.state.message}
