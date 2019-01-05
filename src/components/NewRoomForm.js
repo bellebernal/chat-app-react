@@ -13,7 +13,7 @@ class NewRoomForm extends React.Component {
 
     handleChange(event) {
         this.setState({
-            roomName: event.target.value
+            roomName: event.target.value   //new user entr value for room name
         })
     }
 
@@ -23,7 +23,9 @@ class NewRoomForm extends React.Component {
         this.props.createRoom(this.state.roomName)
 
         //to clear the new room name from createRoom after a new room has been created
-        this.setState({roomName: ''})
+        this.setState({
+            roomName: ''
+        })
     }
 
     render () {
@@ -31,7 +33,7 @@ class NewRoomForm extends React.Component {
             <div className="new-room-form">
                 <form onSubmit={this.handleSubmit}>
                     <input
-                        value={this.state.roomName}
+                        value={this.state.roomName}   //taget.value from handleChange()
                         onChange={this.handleChange}
                         type="text"
                         placeholder="Create Room"

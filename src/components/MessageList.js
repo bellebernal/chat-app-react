@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import Message from './Message'
 
 // const DUMMY_DATA =[
-//     {
+//     {`
 //         senderId: 'cyberbelle',
 //         text: 'Yo!'
 //     },
@@ -54,6 +54,7 @@ class MessageList extends React.Component {
                  {this.props.messages.map((message, index) => {
                     return(
                         <Message key={index} username={message.senderId} text={message.text} />
+                        //this is where we import our sub-compoenent, Message.js
                     )
                 })}
             </div>
@@ -70,10 +71,10 @@ export default MessageList
 //         return (
 //             <div className="message-list">
 //                 //to use dummmy data use:  DUMMY_DATA.map((message, index)),
-//                   in stead of using the chatkit message data below: */}
+//                 //...instead of using the chatkit message data below:
 //                  {this.props.messages.map((message, index) => {
 //                     return(
-//                         //note: his div can be created using a separate component (see Message.js):
+//                         //note: this div can be better composed using a separate component (see Message.js):
 //                         <div key={index} className="message">
 //                             <div className="message-username">{message.senderId}</div>
 //                             <div className="message-text">{message.text}</div>

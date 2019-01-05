@@ -1,12 +1,12 @@
 import React from 'react';
 import styles from './App.css'
-import Chatkit from '@pusher/chatkit'
-import Chatkit from '@pusher/chatkit-server';
+import { ChatManager, TokenProvider } from '@pusher/chatkit-client';
+//import Chatkit from '@pusher/chatkit-server';
 import MessageList from './components/MessageList'
 import SendMessageForm from './components/SendMessageForm'
 import RoomList from './components/RoomList'
 import NewRoomForm from './components/NewRoomForm'
-import { tokenUrl, instanceLocator } from './config'
+//import { tokenUrl, instanceLocator } from './config'
 //import { ErrorResponse } from '../node_modules/pusher-platform'; 
 
 class App extends React.Component {
@@ -30,13 +30,19 @@ class App extends React.Component {
   //To hook a react component to an API:  use lifecycle method componentDidMount()
   //this method is triggered right after the render() method
   componentDidMount() {
-     const chatManager = new Chatkit.ChatManager({
-       instanceLocator,
-       userId: 'cyberbelle',
-       tokenProvider: new Chatkit.TokenProvider({
-         url: tokenUrl
-       })
-     })
+    //  const chatManager = new Chatkit.ChatManager({
+    //    instanceLocator,
+    //    userId: 'cyberbelle',
+    //    tokenProvider: new Chatkit.TokenProvider({
+    //      url: tokenUrl
+    //    })
+    //  })  --> no longer in beta
+
+     const chatManager = new ChatManager({
+      instanceLocator: 'v1:us1:0cb87b87-b8f4-40ed-9ce3-08c7719bb230',
+      userId: 'cyberbelle',
+      tokenProvider: new TokenProvider({ url: 'https://us1.pusherplatform.io/services/chatkit_token_provider/v1/0cb87b87-b8f4-40ed-9ce3-08c7719bb230/token' })
+    })
 
      //this returns a promise and when this promise is resolved we get access to the 
      //...current user -- and the currentUser object contains a bunch of methods for interacting with the API
@@ -66,7 +72,7 @@ class App extends React.Component {
     /* updating to method below that allows user to choose which room to display on app launch*/
     subscribeToRoom(roomId) {
       this.setState({
-        // to clear the prior message history everytime a room is clicked on
+        // to clear the prior history in the messages display everytime a room is clicked on
         messages: []
       })
       this.currentUser.subscribeToRoom({
@@ -93,10 +99,11 @@ class App extends React.Component {
 
     sendMessage(text) {
       this.currentUser.sendMessage({
-        text, //text: text is the ES5 way of syntax, ES6 shortens the syntax when the key-value pair is the same
+        text, // 'text: text' is the ES5 way of syntax, ES6 shortens the syntax when the key-value pair is the same
         roomId: this.state.roomId  //dyanamically set the room 
-        //roomId: 11213510 --> this is statically pre-set room that has been created and will auto-display on app load
+        //roomId: 11213510 --> this is a statically pre-set room that has been created and will auto-display on app load
       })
+      .catch(err => alert('error on message send: ', err))
     }
 
     createRoom(name) {
@@ -104,7 +111,7 @@ class App extends React.Component {
       this.currentUser.createRoom({
         name 
       })
-      //returns a promise and after the promise resolves, we subscribe to that new room
+      //returns a promise and after the promise resolves, we also subscribe to that new room
       //i.e. afer we create a room we auto-subscribe to it
       .then(room => this.subscribeToRoom(room.id))
       .catch(error => console.log('error with createRoom: ', error))

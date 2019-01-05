@@ -1,7 +1,8 @@
 import React from 'react'
-// import ReactDOM from 'react-dom';
+//import ReactDOM from 'react-dom';
 
 function Message(props) {
+    debugger;
     return (
         <div className="message">
             <div className="message-username">{props.username}</div>

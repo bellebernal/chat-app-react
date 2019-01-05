@@ -7,7 +7,7 @@ class SendMessageForm extends React.Component {
         this.state = {
             message: ''
         }
-        /* to be able to access the 'this' object within a method's */
+        /* to be able to access the 'this' object within a method */
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -24,16 +24,18 @@ class SendMessageForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault()
         //console.log(this.state.message)
+        //debugger;
         this.props.sendMessage(this.state.message)
         /* for inverse data passing to <SendMessageForm />'s element property to the parent App component */
         this.setState({
             message: ''
-            /* to clear the messafe form after a message has been broadcasted to message list UI */
+            /* to clear the message form after a message has been broadcasted to message list UI */
         }) /* ~this.state.message (value) */
+        //.catch(err => alert('error on message send: ', err))
     }
 
     render() {
-        console.log(this.state.message); //within this render methos we now have access to the state
+        console.log(this.state.message); //within this render method we now have access to the state
         return (
             <form 
                 onSubmit={this.handleSubmit}
