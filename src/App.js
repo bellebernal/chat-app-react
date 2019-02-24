@@ -6,7 +6,7 @@ import MessageList from './components/MessageList'
 import SendMessageForm from './components/SendMessageForm'
 import RoomList from './components/RoomList'
 import NewRoomForm from './components/NewRoomForm'
-//import { tokenUrl, instanceLocator } from './config'
+import { tokenUrl, instanceLocator } from './config'
 //import { ErrorResponse } from '../node_modules/pusher-platform'; 
 
 class App extends React.Component {
@@ -38,11 +38,19 @@ class App extends React.Component {
     //    })
     //  })  --> no longer in beta
 
-     const chatManager = new ChatManager({
-      instanceLocator: 'v1:us1:0cb87b87-b8f4-40ed-9ce3-08c7719bb230',
-      userId: 'cyberbelle',
-      tokenProvider: new TokenProvider({ url: 'https://us1.pusherplatform.io/services/chatkit_token_provider/v1/0cb87b87-b8f4-40ed-9ce3-08c7719bb230/token' })
-    })
+    //  const chatManager = new ChatManager({
+    //   instanceLocator: 'v1:us1:0cb87b87-b8f4-40ed-9ce3-08c7719bb230',
+    //   userId: 'cyberbelle',
+    //   tokenProvider: new TokenProvider({ url: 'https://us1.pusherplatform.io/services/chatkit_token_provider/v1/0cb87b87-b8f4-40ed-9ce3-08c7719bb230/token' })
+    // }) --> per pusher update syntax
+
+    const chatManager = new ChatManager({
+       instanceLocator,
+       userId: 'cyberbelle',
+       tokenProvider: new TokenProvider({
+         url: tokenUrl
+       })
+     })
 
      //this returns a promise and when this promise is resolved we get access to the 
      //...current user -- and the currentUser object contains a bunch of methods for interacting with the API
