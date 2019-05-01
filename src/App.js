@@ -5,8 +5,6 @@ import MessageList from './components/MessageList'
 import SendMessageForm from './components/SendMessageForm'
 import RoomList from './components/RoomList'
 import NewRoomForm from './components/NewRoomForm'
-//import { tokenUrl, instanceLocator } from './config' - no longer in beta
-
 
 class App extends React.Component {
   //constructor method is needed to initialize a component's state
@@ -29,13 +27,6 @@ class App extends React.Component {
   //To hook a react component to an API:  use lifecycle method componentDidMount()
   //this method is triggered right after the render() method
   componentDidMount() {
-    //  const chatManager = new Chatkit.ChatManager({
-    //    instanceLocator,
-    //    userId: 'cyberbelle',
-    //    tokenProvider: new Chatkit.TokenProvider({
-    //      url: tokenUrl
-    //    })
-    //  })     --> no longer in beta
 
      const chatManager = new ChatManager({
       instanceLocator: 'v1:us1:0cb87b87-b8f4-40ed-9ce3-08c7719bb230',

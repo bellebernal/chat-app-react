@@ -24,7 +24,6 @@ class SendMessageForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault()
         console.log(this.state.message)
-        //debugger;
         this.props.sendMessage(this.state.message)  // for inverse data passing to <SendMessageForm />'s element property to the parent App component
         this.setState({
             message: ''

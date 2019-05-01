@@ -13,7 +13,7 @@ function Message(props) {
 export default Message
 
 
-//NOTE: this component was updated from a class to a function
+//NOTES: this component was updated from a class to a function
 // (when a component doesnt have state or any lifecycle methods or any other methods, we can simplify this class by turning into a function which is best practice as functional components have more restraints to it making it less prone to bugs)
 //refer to resource --> https://reactjs.org/docs/components-and-props.html
 
