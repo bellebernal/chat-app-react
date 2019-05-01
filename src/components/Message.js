@@ -2,7 +2,6 @@ import React from 'react'
 //import ReactDOM from 'react-dom';
 
 function Message(props) {
-    debugger;
     return (
         <div className="message">
             <div className="message-username">{props.username}</div>
@@ -11,17 +10,13 @@ function Message(props) {
     )
 }
 
-// ReactDOM.render(
-//     <Message />,
-//     document.getElementById('message')
-// );
-
 export default Message
 
-//NEXT STEPS:  turn this component class (see below) into a functional component;    **COMPLED, BUT WITH Errors
-//...bc when a component doesnt have state or any lifecycle methods or any other methods, we can simplify this class by turning into a function which is best practice to prevent bugs
-//...bc functional components have more restraints to it making it less prone to bugs
+
+//NOTE: this component was updated from a class to a function
+// (when a component doesnt have state or any lifecycle methods or any other methods, we can simplify this class by turning into a function which is best practice as functional components have more restraints to it making it less prone to bugs)
 //refer to resource --> https://reactjs.org/docs/components-and-props.html
+
 // class Message extends React.Component {
 //     render() {
 //         return (

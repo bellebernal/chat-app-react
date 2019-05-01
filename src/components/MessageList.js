@@ -21,7 +21,7 @@ import Message from './Message'
 class MessageList extends React.Component {
 
     componentWillUpdate() {
-        //to disable auto-scroll when user is looking back through history of messages (scrolling up)
+        //to disable auto-scroll when user is looking back through history of messages (i.e. user scrolls up)
         const node = ReactDOM.findDOMNode(this)
         this.shouldScrollToBottom = node.scrollTop + node.clientHeight + 100 >= node.scrollHeight
     }
@@ -33,9 +33,6 @@ class MessageList extends React.Component {
             node.scrollTop = node.scrollHeight
         }
 
-        //to add auto-scroll to bottom when user sends new message which appends to bottom of message view
-        // const node = ReactDOM.findDOMNode(this)
-        // node.scrollTop = node.scrollHeight
     }
 
     render() {
@@ -53,8 +50,9 @@ class MessageList extends React.Component {
             <div className="message-list">
                  {this.props.messages.map((message, index) => {
                     return(
-                        <Message key={index} username={message.senderId} text={message.text} />
+                        <Message key={index} username={message.senderId} text={message.parts[0].payload.content} />
                         //this is where we import our sub-compoenent, Message.js
+                        // text={message.parts[0].payload.content}
                     )
                 })}
             </div>

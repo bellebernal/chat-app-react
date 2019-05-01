@@ -23,15 +23,13 @@ class SendMessageForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault()
-        //console.log(this.state.message)
+        console.log(this.state.message)
         //debugger;
-        this.props.sendMessage(this.state.message)
-        /* for inverse data passing to <SendMessageForm />'s element property to the parent App component */
+        this.props.sendMessage(this.state.message)  // for inverse data passing to <SendMessageForm />'s element property to the parent App component
         this.setState({
             message: ''
-            /* to clear the message form after a message has been broadcasted to message list UI */
-        }) /* ~this.state.message (value) */
-        //.catch(err => alert('error on message send: ', err))
+        })
+        /* to clear the message form after a message has been broadcasted to message list UI */
     }
 
     render() {

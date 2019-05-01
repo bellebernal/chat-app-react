@@ -1,13 +1,12 @@
 import React from 'react';
 import styles from './App.css'
 import { ChatManager, TokenProvider } from '@pusher/chatkit-client';
-//import Chatkit from '@pusher/chatkit-server';
 import MessageList from './components/MessageList'
 import SendMessageForm from './components/SendMessageForm'
 import RoomList from './components/RoomList'
 import NewRoomForm from './components/NewRoomForm'
-import { tokenUrl, instanceLocator } from './config'
-//import { ErrorResponse } from '../node_modules/pusher-platform'; 
+//import { tokenUrl, instanceLocator } from './config' - no longer in beta
+
 
 class App extends React.Component {
   //constructor method is needed to initialize a component's state
@@ -36,21 +35,16 @@ class App extends React.Component {
     //    tokenProvider: new Chatkit.TokenProvider({
     //      url: tokenUrl
     //    })
-    //  })  --> no longer in beta
+    //  })     --> no longer in beta
 
-    //  const chatManager = new ChatManager({
-    //   instanceLocator: 'v1:us1:0cb87b87-b8f4-40ed-9ce3-08c7719bb230',
-    //   userId: 'cyberbelle',
-    //   tokenProvider: new TokenProvider({ url: 'https://us1.pusherplatform.io/services/chatkit_token_provider/v1/0cb87b87-b8f4-40ed-9ce3-08c7719bb230/token' })
-    // }) --> per pusher update syntax
+     const chatManager = new ChatManager({
+      instanceLocator: 'v1:us1:0cb87b87-b8f4-40ed-9ce3-08c7719bb230',
+      userId: 'cyberbelle',
+      tokenProvider: new TokenProvider({ url: 'https://us1.pusherplatform.io/services/chatkit_token_provider/v1/0cb87b87-b8f4-40ed-9ce3-08c7719bb230/token' })
+    })
+    // updated per pusher update
 
-    const chatManager = new ChatManager({
-       instanceLocator,
-       userId: 'cyberbelle',
-       tokenProvider: new TokenProvider({
-         url: tokenUrl
-       })
-     })
+  
 
      //this returns a promise and when this promise is resolved we get access to the 
      //...current user -- and the currentUser object contains a bunch of methods for interacting with the API
@@ -65,7 +59,6 @@ class App extends React.Component {
       //cach errors logic needed for promises
   }
 
-    /* updating to method below */
     getRooms() {
       this.currentUser.getJoinableRooms()
       .then(joinableRooms => {
@@ -77,17 +70,16 @@ class App extends React.Component {
     .catch(err => alert('error on joinableRooms : ', err))
   }
 
-    /* updating to method below that allows user to choose which room to display on app launch*/
     subscribeToRoom(roomId) {
       this.setState({
-        // to clear the prior history in the messages display everytime a room is clicked on
+        // to clear the prior history in the message list display everytime a different room is clicked on
         messages: []
       })
-      this.currentUser.subscribeToRoom({
+      this.currentUser.subscribeToRoomMultipart({
         //roomId: 11213510 --> statically set the subscribed room on app launch
         roomId: roomId, //dynamically subscribe to any room
         hooks: {
-          onNewMessage: message => {
+          onMessage: message => {
             this.setState({
               messages: [...this.state.messages, message]
             })

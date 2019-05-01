@@ -5,12 +5,11 @@
   "dependencies": {
     "@pusher/chatkit": "^0.7.16",
     "@pusher/chatkit-client": "^1.0.2",
-    "@pusher/chatkit-server": "^1.0.2",
     "react": "^16.4.1",
     "react-dev-utils": "^7.0.3",
     "react-dom": "^16.8.3",
     "react-scripts": "1.1.4",
-    "webpack": "^4.29.5",
+    "webpack": "^4.30.5",
     "webpack-command": "^0.4.1"
   },
   "scripts": {

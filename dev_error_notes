@@ -1,0 +1,81 @@
+
+DEBUG / DEBUGGING / ERROR
+
+Cannot read property 'thisCompilation' of undefined during npm run build 
+[after npm install of webpack]
+
+root cause:  issue due to corrupt download of webpack via npm
+
+FIX:  uninstall webpack, install yarn, the yarn add webpack back to your project
+        -> npm remove webpack
+
+        *-> install yarn [https://yarnpkg.com/lang/en/docs/install/#mac-stable]
+            ... via Homebrew package manager; will neeed to dl homebrew if not already pre-existing on your machine...
+                (note: you will need a local install for each project)
+
+        -> yarn add webpack, e voila!
+
+        * need only one time install
+
+   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+React - Uncaught Error: Target container is not a DOM element
+	
+	root: unnecessary ReactDom logic in a components logic
+
+	FIX:
+	> remove import ReactDOM
+	> remove 
+			ReactDOM.render(
+     			<Message />,
+     			document.getElementById('message')
+ 			);
+ 	.. remove from problematic component file
+
+ 	+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Error: Cannot find module 'http-proxy'
+at Function.Module._resolveFilename (module.js:325:15)
+at Function.Module._load (module.js:276:25)
+at Module.require (module.js:353:17)
+at require (internal/module.js:12:17)
+at Object. (C:\Program Files\nodejs\node_modules\cors-anywhere\lib\cors-anywhere.js:6:17)
+at Module._compile (module.js:409:26)
+at Object.Module._extensions..js (module.js:416:10)
+at Module.load (module.js:343:32)
+at Function.Module._load (module.js:300:12)
+at Module.require (module.js:353:17)
+
+npm ERR! This is most likely a problem with the cors-anywhere package,
+npm ERR! not with npm itself.
+npm ERR! Tell the author that this fails on your system:
+npm ERR! node server.js
+npm ERR! You can get information on how to open an issue for this project with:
+npm ERR! npm bugs cors-anywhere
+npm ERR! Or if that isn't available, you can get their info via:
+npm ERR!
+npm ERR! npm owner ls cors-anywh
+
+ere
+npm ERR! There is likely additional logging output above.
+
+	>root cause:  dependency issue
+
+	> FIX: Use `npm install` to make sure that all dependencies (and the correct version) in package.json are installed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
